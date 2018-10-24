@@ -13,8 +13,8 @@ A simple to use server manager for your arma 3 server on linux.
 - [ ] ArmA 3 Server starten
 
 ## Befehle
-- [ ] node app.js install
-- [ ] node app.js update
+- [ ] node app.js install USERNAME PASSWORD
+- [ ] node app.js update USERNAME PASSWORD
 - [ ] node app.js start
 
 ## Mods einstellen
