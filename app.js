@@ -14,7 +14,7 @@ const { spawn } = require('child_process');
 const args = process.argv.slice(2);
 
 // Directories
-const serverDir = `./serverfiles/`;
+const serverDir = `./`;
 const modDir = `${serverDir}mods/`
 const workshopDir = `${serverDir}steamapps/workshop/content/107410/`
 
@@ -87,7 +87,10 @@ if (args[0] === 'update') {
  */
 
 const start = () => {
-    spawn(`${serverDir}arma3server`, [''], { detached: true });
+    spawn(`${serverDir}arma3server`, [''], {
+        detached: true,
+        stdio: 'ignore'
+    }).unref();;
 }
 
 if (args[0] === 'start') {
