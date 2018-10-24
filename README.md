@@ -15,7 +15,7 @@ su steam && \
 cd ~ \
 ```
 
-#### 1. Install Node.js (recommended: [NVM](https://github.com/creationix/nvm#install-script))
+#### 1. Install Node.js (Recommended: [NVM](https://github.com/creationix/nvm#install-script))
 
 ```
 $ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
