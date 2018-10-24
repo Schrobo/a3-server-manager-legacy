@@ -63,19 +63,19 @@ $ node app.js start
 - [ ] ArmA 3 mod updates
 - [ ] ArmA 3 mod settings
 - [ ] Copy ArmA 3 keys
-- [X] Start ArmA 3 server
+- [ ] Start ArmA 3 server
 
 #### Commands
 
 - [X] node app.js install "USERNAME" "PASSWORD"
 - [X] node app.js update "USERNAME" "PASSWORD"
-- [X] node app.js start
+- [ ] node app.js start
 
 #### Mods settings
 
-- [ ] Modlist inside a JSON file:
+- [X] Mod configuration inside app.js:
 
-```JSON
+```
 [
     {"@CBA_A3": "450814997"},
     {"@ACE": "463939057"}
