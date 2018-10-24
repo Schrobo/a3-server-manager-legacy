@@ -20,15 +20,15 @@ const checkRequirements = (username, password) => {
 
     if (username | password == null) {
         throw new Error(`No username or password provided!
-        Use 'install USERNAME PASSWORD'`);
+        Use 'install "USERNAME" "PASSWORD"'`);
     }
 }
 
 const updateArmA3 = (username, password) => {
-    execSyncCommand (`./steamcmd
-    +login ${username} ${password}
-    +force_install_dir ./serverfiles/
-    +app_update 233780 validate +quit`);
+    execSyncCommand (`./steamcmd \
+    +login ${username} ${password} \
+    +force_install_dir ./serverfiles/ \
+    +app_update 233780 validate +quit \ `);
 }
 
 /**
@@ -40,14 +40,14 @@ const install = (username, password) => {
 
     // Requirements for server and installation
     const requirements =
-        `lib32gcc1
-        lib32z1
-        lib32ncurses5
-        lib32gcc1
-        lib32stdc++6
-        curl
-        tar
-        rename`;
+        `lib32gcc1 \
+        lib32z1 \
+        lib32ncurses5 \
+        lib32gcc1 \
+        lib32stdc++6 \
+        curl \
+        tar \
+        rename \ `;
 
     // Install requirements
     execSyncCommand (`sudo apt-get update && sudo apt-get install ${requirements} -y`);
