@@ -1,9 +1,8 @@
 /**
- * V0.1
+ * V0.2
  *
- * Problem: Der ArmA 3 Server soll installiert und gestartet werden können
- * Lösung: Nutze Node.js, um den Server über das CLI zu installieren und
- * zu starten.
+ * Problem: ArmA 3 Server does not start
+ * Solution: Use CLI to run the server.
  *  */
 
 const fs = require('fs');
@@ -12,6 +11,11 @@ const execSyncCommand = command => execSync(command, {stdio:[0,1,2]});
 
 // Arguments passed by user
 const args = process.argv.slice(2);
+
+// Directories
+const serverDir = `./serverfiles/`;
+const modDir = `${serverDir}mods/`
+const workshopDir = `${serverDir}steamapps/workshop/content/107410/`
 
 const checkRequirements = (username, password) => {
     if (process.platform !== 'linux') {
@@ -27,7 +31,7 @@ const checkRequirements = (username, password) => {
 const updateArmA3 = (username, password) => {
     execSyncCommand (`./steamcmd.sh \
     +login "${username}" "${password}" \
-    +force_install_dir ./serverfiles/ \
+    +force_install_dir ${serverDir} \
     +app_update 233780 validate +quit \ `);
 }
 
@@ -75,4 +79,16 @@ const update = (username, password) => {
 
 if (args[0] === 'update') {
     update(args[1], args[2]);
+}
+
+/**
+ * Command: start
+ */
+
+const start = () => {
+    execSyncCommand(`${serverDir}arma3server`);
+}
+
+if (args[0] === 'start') {
+    start();
 }
