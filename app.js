@@ -25,8 +25,8 @@ const checkRequirements = (username, password) => {
 }
 
 const updateArmA3 = (username, password) => {
-    execSyncCommand (`./steamcmd \
-    +login ${username} ${password} \
+    execSyncCommand (`./steamcmd.sh \
+    +login "${username}" "${password}" \
     +force_install_dir ./serverfiles/ \
     +app_update 233780 validate +quit \ `);
 }
