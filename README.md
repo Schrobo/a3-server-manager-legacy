@@ -1,12 +1,12 @@
 # A3 Server Manager (WIP)
 
-## Introduction
-
 A3 Server Manager is a simple to use server manager for your ArmA 3 server and mods on Linux. It is build with Node.js and runs from your terminal.
 
-#### Don't run this as root!
+## How to use
 
-*Create a user or switch the user before you use this tool.*
+### Installation
+
+#### IMPORTANT: Don't run this as root!
 
 ```
 $ adduser --gecos "" steam && \
@@ -15,11 +15,7 @@ su steam && \
 cd ~ \
 ```
 
-## How to use
-
-### Installation
-
-#### 1. Install Node.js (with [NVM](https://github.com/creationix/nvm#install-script))
+#### 1. Install Node.js (recommended: [NVM](https://github.com/creationix/nvm#install-script))
 
 ```
 $ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
