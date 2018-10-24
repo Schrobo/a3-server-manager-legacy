@@ -63,13 +63,13 @@ $ node app.js start
 - [ ] ArmA 3 mod updates
 - [ ] ArmA 3 mod settings
 - [ ] Copy ArmA 3 keys
-- [ ] Start ArmA 3 server
+- [X] Start ArmA 3 server
 
 #### Commands
 
 - [X] node app.js install "USERNAME" "PASSWORD"
 - [X] node app.js update "USERNAME" "PASSWORD"
-- [ ] node app.js start
+- [X] node app.js start
 
 #### Mods settings
 
