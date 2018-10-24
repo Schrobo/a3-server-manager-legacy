@@ -7,7 +7,7 @@ const { spawn } = require('child_process');
 const args = process.argv.slice(2);
 
 // Directories
-const serverDir = `./`;
+const serverDir = `./serverfiles/`;
 const modsDir = `${serverDir}mods/`
 const workshopDir = `${serverDir}steamapps/workshop/content/107410/`
 
@@ -67,8 +67,8 @@ const install = (username, password) => {
     // Download and extract SteamCMD
     execSyncCommand (`curl -sqL "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz" | tar zxvf -`);
 
-    // Run SteamCMD using credentials and install ArmA 3 server
     updateArmA3(username, password);
+    updateMods(username, password);
 }
 
 if (args[0] === 'install') {
