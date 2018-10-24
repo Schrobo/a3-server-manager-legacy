@@ -61,7 +61,7 @@ $ node app.js start
 - [X] SteamCMD updates
 - [X] ArmA 3 server updates
 - [ ] ArmA 3 mod updates
-- [ ] ArmA 3 mod settings
+- [X] ArmA 3 mod settings
 - [ ] Copy ArmA 3 keys
 - [ ] Start ArmA 3 server
 
