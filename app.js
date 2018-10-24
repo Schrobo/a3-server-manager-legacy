@@ -1,10 +1,3 @@
-/**
- * V0.2
- *
- * Problem: ArmA 3 Server does not start
- * Solution: Use CLI to run the server.
- *  */
-
 const fs = require('fs');
 const { execSync } = require('child_process');
 const execSyncCommand = command => execSync(command, {stdio:[0,1,2]});
@@ -15,8 +8,14 @@ const args = process.argv.slice(2);
 
 // Directories
 const serverDir = `./`;
-const modDir = `${serverDir}mods/`
+const modsDir = `${serverDir}mods/`
 const workshopDir = `${serverDir}steamapps/workshop/content/107410/`
+
+// Mods
+const mods = [
+    {"@CBA_A3": "450814997"},
+    {"@ACE": "463939057"}
+]
 
 const checkRequirements = (username, password) => {
     if (process.platform !== 'linux') {
@@ -30,10 +29,18 @@ const checkRequirements = (username, password) => {
 }
 
 const updateArmA3 = (username, password) => {
-    execSyncCommand (`./steamcmd.sh \
-    +login "${username}" "${password}" \
-    +force_install_dir ${serverDir} \
-    +app_update 233780 validate +quit \ `);
+    execSyncCommand (`./steamcmd.sh +login "${username}" "${password}" +force_install_dir ${serverDir} +app_update 233780 validate +quit`);
+}
+
+const updateMods = (username, password) => {
+    let modList;
+    mods.forEach((mod) => {
+        for (let modName in mod) {
+            console.log(`Modname: ${modName} --> ID: ${mod[modName]}`)
+            modList += `+workshop_download_item 107410 ${mod[modName]} `;
+        }
+    });
+    execSyncCommand (`./steamcmd.sh +login "${username}" "${password}" +force_install_dir ${serverDir} ${modList} validate +quit`);
 }
 
 /**
@@ -76,6 +83,7 @@ const update = (username, password) => {
     checkRequirements(username, password);
 
     updateArmA3(username, password);
+    updateMods(username, password);
 }
 
 if (args[0] === 'update') {
