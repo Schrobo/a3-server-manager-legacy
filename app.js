@@ -6,8 +6,9 @@
  *  */
 
 const fs = require('fs');
-const { execSync  } = require('child_process');
+const { execSync } = require('child_process');
 const execSyncCommand = command => execSync(command, {stdio:[0,1,2]});
+const { spawn } = require('child_process');
 
 // Arguments passed by user
 const args = process.argv.slice(2);
@@ -86,7 +87,7 @@ if (args[0] === 'update') {
  */
 
 const start = () => {
-    execSyncCommand(`${serverDir}arma3server`);
+    spawn(`${serverDir}arma3server`, [''], { detached: true });
 }
 
 if (args[0] === 'start') {
