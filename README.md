@@ -64,24 +64,24 @@ $ node app.js start
 - [X] ArmA 3 mod settings
 - [ ] ArmA 3 mod lowercase
 - [ ] Copy ArmA 3 keys
-- [ ] Start ArmA 3 server
-- [ ] Start ArmA 3 server with mods
+- [X] Start ArmA 3 server
+- [X] Start ArmA 3 server with mods
 
 #### Commands
 
 - [X] node app.js install "USERNAME" "PASSWORD"
 - [X] node app.js update "USERNAME" "PASSWORD"
-- [ ] node app.js start
+- [X] node app.js start
 
 #### Mods settings
 
 - [X] Mod configuration inside app.js:
 
 ```
-[
-    {"@CBA_A3": "450814997"},
-    {"@ACE": "463939057"}
-]
+{
+    "@CBA_A3": "450814997",
+    "@ACE": "463939057"
+}
 ```
 
 ### V2.0
