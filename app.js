@@ -7,8 +7,24 @@ const workshopDir = `steamapps/workshop/content/107410/`
 
 // Mods
 const mods = {
-    "@cba_a3": "450814997",
-    "@ace": "463939057"
+    "@cba": "450814997",
+    "@achilles": "723217262",
+    "@nss_console": "626264195",
+    "@3den_enhanced": "623475643",
+    "@3den_inv": "1124993203",
+    "@enhanced_movement": "333310405",
+    "@sling": "615007497",
+    "@towing": "639837898",
+    "@rappeling": "713709341",
+    "@urban_rappeling": "730310357",
+    "@wmo": "925018569",
+    "@task_force_radio": "620019431",
+    "@reduced_weap_sway": "567737932",
+    "@alive": "620260972",
+    "@vcom_ai": "721359761",
+    "@shacktac_ui": "498740884",
+    "@ace": "463939057",
+    "@acex": "708250744",
 }
 
 // Server mods
