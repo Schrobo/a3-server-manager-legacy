@@ -123,11 +123,7 @@ const start = () => {
     const serverModParameter = returnServerModParameter();
 
     const serverParameter =
-    `-name=Server \
-    -cfg=cfg/arma3server.network.cfg \
-    -config=cfg/arma3server.server.cfg \
-    -mod=${modParameter} \
-    -serverMod=${serverModParameter} \ `;
+    `-name=Server -cfg=cfg/arma3server.network.cfg -config=cfg/arma3server.server.cfg -mod=${modParameter} -serverMod=${serverModParameter}`;
 
     execSyncCommand(`screen -dmS arma3server && screen -S arma3server -X stuff 'cd ${serverDir} && ./arma3server ${serverParameter}\n'`);
 }
