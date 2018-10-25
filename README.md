@@ -31,13 +31,13 @@ $ git clone https://github.com/schrobo/a3-server-manager.git
 
 ### Commands
 
-#### Install server
+#### Install dependencies, server and mods
 
 ```
 $ node app.js install "USERNAME" "PASSWORD"
 ```
 
-#### Update server
+#### Update server and mods
 
 ```
 $ node app.js update "USERNAME" "PASSWORD"
@@ -57,13 +57,14 @@ $ node app.js start
 
 - [X] SteamCMD installation
 - [X] ArmA 3 server installation
-- [ ] ArmA 3 mod installation
+- [X] ArmA 3 mod installation
 - [X] SteamCMD updates
 - [X] ArmA 3 server updates
-- [ ] ArmA 3 mod updates
+- [X] ArmA 3 mod updates
 - [X] ArmA 3 mod settings
 - [ ] Copy ArmA 3 keys
 - [ ] Start ArmA 3 server
+- [ ] Start ArmA 3 server with mods
 
 #### Commands
 
