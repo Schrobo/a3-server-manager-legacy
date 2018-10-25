@@ -43,6 +43,11 @@ $ node app.js install "USERNAME" "PASSWORD"
 $ node app.js update "USERNAME" "PASSWORD"
 ```
 
+#### Manually rename (lowercase) mods
+```
+find ./serverfiles/steamapps/workshop/content/107410/ -depth -exec rename 's/(.*)\/([^\/]*)/$1\/\L$2/' {} \;
+```
+
 #### Start server
 
 ```

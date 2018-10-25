@@ -11,7 +11,6 @@ const mods = {
     "@achilles": "723217262",
     "@nss_console": "626264195",
     "@3den_enhanced": "623475643",
-    "@3den_inv": "1124993203",
     "@enhanced_movement": "333310405",
     "@sling": "615007497",
     "@towing": "639837898",
