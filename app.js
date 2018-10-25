@@ -1,21 +1,28 @@
-const fs = require('fs');
-const { execSync } = require('child_process');
-const execSyncCommand = command => execSync(command, {stdio:[0,1,2]});
-const { spawn } = require('child_process');
-
-// Arguments passed by user
-const args = process.argv.slice(2);
+/** ################################################# */
+/** ############### Settings begin here ############# */
 
 // Directories
 const serverDir = `./serverfiles/`;
-const modsDir = `${serverDir}mods/`
-const workshopDir = `${serverDir}steamapps/workshop/content/107410/`
+const workshopDir = `steamapps/workshop/content/107410/`
 
 // Mods
 const mods = {
     "@cba_a3": "450814997",
     "@ace": "463939057"
 }
+
+// Server mods
+const serverMods = {}
+
+/** ############### Settings end here ############### */
+/** ################################################# */
+
+const fs = require('fs');
+const { execSync } = require('child_process');
+const execSyncCommand = command => execSync(command, {stdio:[0,1,2]});
+
+// Arguments passed by user
+const args = process.argv.slice(2);
 
 const checkRequirements = (username, password) => {
     if (process.platform !== 'linux') {
@@ -34,11 +41,29 @@ const updateArmA3 = (username, password) => {
 
 const updateMods = (username, password) => {
     let modList = ' ';
-    for (let modName in mods) {
-        console.log(`Modname: ${modName} --> ID: ${mods[modName]}`)
-        modList += `+workshop_download_item 107410 ${mods[modName]} `;
+    for (let mod in mods) {
+        console.log(`Modname: ${mod} --> ID: ${mods[mod]}`)
+        modList += `+workshop_download_item 107410 ${mods[mod]} `;
     }
     execSyncCommand (`./steamcmd.sh +login "${username}" "${password}" +force_install_dir ${serverDir} ${modList} validate +quit`);
+}
+
+const returnModParameter = () => {
+    let parameter = ' ';
+    for (let mod in mods) {
+        console.log(`Modname: ${mod} --> ID: ${mods[mod]}`)
+        parameter += `${workshopDir}${mods[mod]}\;`;
+    }
+    return parameter;
+}
+
+const returnServerModParameter = () => {
+    let parameter = ' ';
+    for (let mod in serverMods) {
+        console.log(`Modname: ${mod} --> ID: ${serverMods[mod]}`)
+        parameter += `${workshopDir}${serverMods[mod]}\;`;
+    }
+    return parameter;
 }
 
 /**
@@ -57,7 +82,8 @@ const install = (username, password) => {
         lib32stdc++6 \
         curl \
         tar \
-        rename \ `;
+        rename \
+        screen \ `;
 
     // Install requirements
     execSyncCommand (`sudo apt-get update && sudo apt-get install ${requirements} -y`);
@@ -93,10 +119,17 @@ if (args[0] === 'update') {
  */
 
 const start = () => {
-    spawn(`${serverDir}arma3server`, [''], {
-        detached: true,
-        stdio: 'ignore'
-    }).unref();
+    const modParameter = returnModParameter();
+    const serverModParameter = returnServerModParameter();
+
+    const serverParameter =
+    `-name=Server \
+    -cfg=cfg/arma3server.network.cfg \
+    -config=cfg/arma3server.server.cfg \
+    -mod=${modParameter} \
+    -serverMod=${serverModParameter} \ `;
+
+    execSyncCommand(`screen -dmS arma3server && screen -S arma3server -X stuff 'cd ${serverDir} && ./arma3server ${serverParameter}\n'`);
 }
 
 if (args[0] === 'start') {
