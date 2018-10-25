@@ -49,7 +49,7 @@ const updateMods = (username, password) => {
 }
 
 const returnModParameter = () => {
-    let parameter = ' ';
+    let parameter = '\;';
     for (let mod in mods) {
         console.log(`Modname: ${mod} --> ID: ${mods[mod]}`)
         parameter += `${workshopDir}${mods[mod]}\;`;
@@ -58,7 +58,7 @@ const returnModParameter = () => {
 }
 
 const returnServerModParameter = () => {
-    let parameter = ' ';
+    let parameter = '\;';
     for (let mod in serverMods) {
         console.log(`Modname: ${mod} --> ID: ${serverMods[mod]}`)
         parameter += `${workshopDir}${serverMods[mod]}\;`;
