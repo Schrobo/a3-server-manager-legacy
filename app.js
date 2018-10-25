@@ -33,7 +33,7 @@ const updateArmA3 = (username, password) => {
 }
 
 const updateMods = (username, password) => {
-    let modList;
+    let modList = ' ';
     for (let modName in mods) {
         console.log(`Modname: ${modName} --> ID: ${mods[modName]}`)
         modList += `+workshop_download_item 107410 ${mods[modName]} `;
