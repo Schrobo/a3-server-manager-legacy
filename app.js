@@ -51,10 +51,10 @@ const updateMods = (username, password) => {
 
 const copyKeys = () => {
     for (let mod in mods) {
-        execSyncCommand(`cp ${serverDir}${workshopDir}${mods[mod]}/keys/. ${serverDir}keys/`)
+        execSyncCommand(`cp -r ${serverDir}${workshopDir}${mods[mod]}/keys/. ${serverDir}keys/`)
     }
     for (let mod in serverMods) {
-        execSyncCommand(`cp ${serverDir}${workshopDir}${serverMods[mod]}/keys/. ${serverDir}keys/`)
+        execSyncCommand(`cp -r ${serverDir}${workshopDir}${serverMods[mod]}/keys/. ${serverDir}keys/`)
     }
 }
 
