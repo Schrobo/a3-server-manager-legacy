@@ -46,6 +46,16 @@ const updateMods = (username, password) => {
         modList += `+workshop_download_item 107410 ${mods[mod]} `;
     }
     execSyncCommand (`./steamcmd.sh +login "${username}" "${password}" +force_install_dir ${serverDir} ${modList} validate +quit`);
+    copyKeys();
+}
+
+const copyKeys = () => {
+    for (let mod in mods) {
+        execSyncCommand(`cp ${serverDir}${workshopDir}${mods[mod]}/keys/. ${serverDir}keys/`)
+    }
+    for (let mod in serverMods) {
+        execSyncCommand(`cp ${serverDir}${workshopDir}${serverMods[mod]}/keys/. ${serverDir}keys/`)
+    }
 }
 
 const returnModParameter = () => {
