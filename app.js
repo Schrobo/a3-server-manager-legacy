@@ -98,7 +98,7 @@ const start = () => {
     spawn(`${serverDir}arma3server`, [''], {
         detached: true,
         stdio: 'ignore'
-    }).unref();;
+    }).unref();
 }
 
 if (args[0] === 'start') {
