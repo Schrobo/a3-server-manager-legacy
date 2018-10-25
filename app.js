@@ -39,6 +39,10 @@ const updateArmA3 = (username, password) => {
     execSyncCommand (`./steamcmd.sh +login "${username}" "${password}" +force_install_dir ${serverDir} +app_update 233780 validate +quit`);
 }
 
+const copyTemplates = () => {
+    execSyncCommand (`cp -r ./templates/. ${serverDir}`);
+}
+
 const updateMods = (username, password) => {
     let modList = ' ';
     for (let mod in mods) {
@@ -108,6 +112,7 @@ const install = (username, password) => {
     execSyncCommand (`curl -sqL "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz" | tar zxvf -`);
 
     updateArmA3(username, password);
+    copyTemplates();
     updateMods(username, password);
 }
 
