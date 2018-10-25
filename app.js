@@ -12,10 +12,10 @@ const modsDir = `${serverDir}mods/`
 const workshopDir = `${serverDir}steamapps/workshop/content/107410/`
 
 // Mods
-const mods = [
-    {"@CBA_A3": "450814997"},
-    {"@ACE": "463939057"}
-]
+const mods = {
+    "@cba_a3": "450814997",
+    "@ace": "463939057"
+}
 
 const checkRequirements = (username, password) => {
     if (process.platform !== 'linux') {
@@ -34,12 +34,10 @@ const updateArmA3 = (username, password) => {
 
 const updateMods = (username, password) => {
     let modList;
-    mods.forEach((mod) => {
-        for (let modName in mod) {
-            console.log(`Modname: ${modName} --> ID: ${mod[modName]}`)
-            modList += `+workshop_download_item 107410 ${mod[modName]} `;
-        }
-    });
+    for (let modName in mods) {
+        console.log(`Modname: ${modName} --> ID: ${mods[modName]}`)
+        modList += `+workshop_download_item 107410 ${mods[modName]} `;
+    }
     execSyncCommand (`./steamcmd.sh +login "${username}" "${password}" +force_install_dir ${serverDir} ${modList} validate +quit`);
 }
 
