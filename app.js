@@ -49,7 +49,7 @@ const updateMods = (username, password) => {
 }
 
 const returnModParameter = () => {
-    let parameter = '\;';
+    let parameter = '\\;';
     for (let mod in mods) {
         console.log(`Modname: ${mod} --> ID: ${mods[mod]}`)
         parameter += `${workshopDir}${mods[mod]}\;`;
@@ -58,10 +58,10 @@ const returnModParameter = () => {
 }
 
 const returnServerModParameter = () => {
-    let parameter = '\;';
+    let parameter = '\\;';
     for (let mod in serverMods) {
         console.log(`Modname: ${mod} --> ID: ${serverMods[mod]}`)
-        parameter += `${workshopDir}${serverMods[mod]}\;`;
+        parameter += `${workshopDir}${serverMods[mod]}\\;`;
     }
     return parameter;
 }
@@ -122,7 +122,7 @@ const start = () => {
     const modParameter = returnModParameter();
     const serverModParameter = returnServerModParameter();
 
-    const serverParameter = `./arma3server -name=Server -cfg=cfg/arma3server.network.cfg -config=cfg/arma3server.server.cfg -mod=${modParameter} -mod=${serverModParameter}`;
+    const serverParameter = `./arma3server -name=Server -cfg=cfg/arma3server.network.cfg -config=cfg/arma3server.server.cfg -mod=${modParameter} -serverMod=${serverModParameter}`;
     console.log('Running:' + serverParameter);
 
     execSyncCommand(`screen -dmS arma3server && screen -S arma3server -X stuff 'cd ${serverDir} && ${serverParameter}\n'`);
