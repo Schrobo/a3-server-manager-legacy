@@ -65,14 +65,13 @@ const updateMods = (username, password) => {
         modList += `+workshop_download_item 107410 ${mods[mod]} `;
     }
     execSyncCommand (`./steamcmd.sh +login "${username}" "${password}" +force_install_dir ${serverDir} ${modList} validate +quit`);
-    // lowercaseMods();
+    lowercaseMods();
     copyKeys();
 }
 
-// const lowercaseMods = () => {
-//     // find ./serverfiles/steamapps/workshop/content/107410/ -depth -exec rename 's/(.*)\/([^\/]*)/$1\/\L$2/' {} \;
-//     execSyncCommand(`find ${serverDir}${workshopDir} -depth -exec rename 's/(.*)\/([^\/]*)/$1\/\L$2/' {} \\;`);
-// }
+const lowercaseMods = () => {
+     execSyncCommand(`find ${serverDir}${workshopDir} -depth -exec rename 's/(.*)\\/([^\\/]*)/$1\\/\\L$2/' {} \\;`);
+}
 
 const copyKeys = () => {
     for (let mod in mods) {
@@ -87,7 +86,7 @@ const returnModParameter = () => {
     let parameter = '\\;';
     for (let mod in mods) {
         console.log(`Modname: ${mod} --> ID: ${mods[mod]}`)
-        parameter += `${workshopDir}${mods[mod]}\;`;
+        parameter += `${workshopDir}${mods[mod]}\\;`;
     }
     return parameter;
 }
