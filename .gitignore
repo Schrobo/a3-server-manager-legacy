@@ -1,1 +1,7 @@
 serverfiles/
+linux32/
+linux64/
+package/
+public/
+steam/
+steamcmd.sh
