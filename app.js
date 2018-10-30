@@ -20,14 +20,15 @@ const mods = {
     "@task_force_radio": "620019431",
     "@reduced_weap_sway": "567737932",
     "@alive": "620260972",
-    "@vcom_ai": "721359761",
     "@shacktac_ui": "498740884",
     "@ace": "463939057",
     "@acex": "708250744",
 }
 
 // Server mods
-const serverMods = {}
+const serverMods = {
+    "@vcom_ai": "721359761"
+}
 
 /** ############### Settings end here ############### */
 /** ################################################# */
@@ -76,9 +77,6 @@ const lowercaseMods = () => {
 const copyKeys = () => {
     for (let mod in mods) {
         execSyncCommand(`cp -r ${serverDir}${workshopDir}${mods[mod]}/keys/. ${serverDir}keys/`)
-    }
-    for (let mod in serverMods) {
-        execSyncCommand(`cp -r ${serverDir}${workshopDir}${serverMods[mod]}/keys/. ${serverDir}keys/`)
     }
 }
 
