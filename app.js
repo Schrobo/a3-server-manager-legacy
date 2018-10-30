@@ -155,10 +155,10 @@ const start = () => {
     const modParameter = returnModParameter();
     const serverModParameter = returnServerModParameter();
 
-    const serverParameter = `./arma3server -name=Server -cfg=cfg/arma3server.network.cfg -config=cfg/arma3server.server.cfg -mod=${modParameter} -serverMod=${serverModParameter}`;
-    console.log('Running:' + serverParameter);
+    const startupCommand = `./arma3server -name=Server -cfg=cfg/arma3server.network.cfg -config=cfg/arma3server.server.cfg -mod=${modParameter} -serverMod=${serverModParameter}`;
+    console.log('Running:' + startupCommand);
 
-    execSyncCommand(`screen -dmS arma3server && screen -S arma3server -X stuff 'cd ${serverDir} && ${serverParameter}\n'`);
+    execSyncCommand(`screen -dmS arma3server && screen -S arma3server -X stuff 'cd ${serverDir} && ${startupCommand}\n'`);
 }
 
 if (args[0] === 'start') {
