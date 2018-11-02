@@ -20,14 +20,15 @@ const mods = {
     "@task_force_radio": "620019431",
     "@reduced_weap_sway": "567737932",
     "@alive": "620260972",
-    "@vcom_ai": "721359761",
     "@shacktac_ui": "498740884",
     "@ace": "463939057",
     "@acex": "708250744",
 }
 
 // Server mods
-const serverMods = {}
+const serverMods = {
+    "@vcom_ai": "721359761"
+}
 
 /** ############### Settings end here ############### */
 /** ################################################# */
@@ -65,21 +66,17 @@ const updateMods = (username, password) => {
         modList += `+workshop_download_item 107410 ${mods[mod]} `;
     }
     execSyncCommand (`./steamcmd.sh +login "${username}" "${password}" +force_install_dir ${serverDir} ${modList} validate +quit`);
-    // lowercaseMods();
+    lowercaseMods();
     copyKeys();
 }
 
-// const lowercaseMods = () => {
-//     // find ./serverfiles/steamapps/workshop/content/107410/ -depth -exec rename 's/(.*)\/([^\/]*)/$1\/\L$2/' {} \;
-//     execSyncCommand(`find ${serverDir}${workshopDir} -depth -exec rename 's/(.*)\/([^\/]*)/$1\/\L$2/' {} \\;`);
-// }
+const lowercaseMods = () => {
+     execSyncCommand(`find ${serverDir}${workshopDir} -depth -exec rename 's/(.*)\\/([^\\/]*)/$1\\/\\L$2/' {} \\;`);
+}
 
 const copyKeys = () => {
     for (let mod in mods) {
         execSyncCommand(`cp -r ${serverDir}${workshopDir}${mods[mod]}/keys/. ${serverDir}keys/`)
-    }
-    for (let mod in serverMods) {
-        execSyncCommand(`cp -r ${serverDir}${workshopDir}${serverMods[mod]}/keys/. ${serverDir}keys/`)
     }
 }
 
@@ -87,7 +84,7 @@ const returnModParameter = () => {
     let parameter = '\\;';
     for (let mod in mods) {
         console.log(`Modname: ${mod} --> ID: ${mods[mod]}`)
-        parameter += `${workshopDir}${mods[mod]}\;`;
+        parameter += `${workshopDir}${mods[mod]}\\;`;
     }
     return parameter;
 }
@@ -158,10 +155,15 @@ const start = () => {
     const modParameter = returnModParameter();
     const serverModParameter = returnServerModParameter();
 
-    const serverParameter = `./arma3server -name=Server -cfg=cfg/arma3server.network.cfg -config=cfg/arma3server.server.cfg -mod=${modParameter} -serverMod=${serverModParameter}`;
-    console.log('Running:' + serverParameter);
+    const startupCommand = `./arma3server -name=Server -cfg=cfg/arma3server.network.cfg -config=cfg/arma3server.server.cfg -mod=${modParameter} -serverMod=${serverModParameter}`;
 
-    execSyncCommand(`screen -dmS arma3server && screen -S arma3server -X stuff 'cd ${serverDir} && ${serverParameter}\n'`);
+    // Create file containing startupCommand.
+    fs.writeFile(`${serverDir}start.sh`, startupCommand, function (err) {
+        if (err) throw err;
+        execSyncCommand(`chmod u+x ${serverDir}start.sh`);
+    });
+
+    execSyncCommand(`screen -dmS arma3server && screen -S arma3server -X stuff 'cd ${serverDir} && ./start.sh \n'`);
 }
 
 if (args[0] === 'start') {

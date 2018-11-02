@@ -67,7 +67,7 @@ $ node app.js start
 - [X] ArmA 3 server updates
 - [X] ArmA 3 mod updates
 - [X] ArmA 3 mod settings
-- [ ] ArmA 3 mod lowercase
+- [X] ArmA 3 mod lowercase
 - [X] Copy ArmA 3 keys
 - [X] Start ArmA 3 server
 - [X] Start ArmA 3 server with mods
