@@ -156,9 +156,14 @@ const start = () => {
     const serverModParameter = returnServerModParameter();
 
     const startupCommand = `./arma3server -name=Server -cfg=cfg/arma3server.network.cfg -config=cfg/arma3server.server.cfg -mod=${modParameter} -serverMod=${serverModParameter}`;
-    console.log('Running:' + startupCommand);
 
-    execSyncCommand(`screen -dmS arma3server && screen -S arma3server -X stuff 'cd ${serverDir} && ${startupCommand} \n'`);
+    // Create file containing startupCommand.
+    fs.writeFile(`${serverDir}start.sh`, startupCommand, function (err) {
+        if (err) throw err;
+        execSyncCommand(`chmod u+x ${serverDir}start.sh`);
+    });
+
+    execSyncCommand(`screen -dmS arma3server && screen -S arma3server -X stuff 'cd ${serverDir} && ./start.sh \n'`);
 }
 
 if (args[0] === 'start') {
