@@ -155,7 +155,7 @@ const start = () => {
     const modParameter = returnModParameter();
     const serverModParameter = returnServerModParameter();
 
-    const startupCommand = `./arma3server -name=Server -cfg=cfg/arma3server.network.cfg -config=cfg/arma3server.server.cfg -mod=${modParameter} -serverMod=${serverModParameter}`;
+    const startupCommand = `./arma3server -name=server -cfg=cfg/arma3server.network.cfg -config=cfg/arma3server.server.cfg -mod=${modParameter} -serverMod=${serverModParameter}`;
 
     // Create file containing startupCommand.
     fs.writeFile(`${serverDir}start.sh`, startupCommand, function (err) {
