@@ -93,9 +93,41 @@ $ node app.js start
 
 #### Features
 
-- [ ] Run on all OS
+- [ ] Easier and more intuitive operation
+- [ ] "Profiles" for different server configurations
+- [ ] Run profile as headless client
+- [ ] "Advanced"/Better commands
+
+#### Commands
+
+- [ ] node app.js install [username] [password]
+- [ ] node app.js update [username] [password] [profile] -s/-m/-a
+- [ ] node app.js start [profile] (-hc)
+
+#### Mods settings
+
+- [X] Mod configuration inside {profiledir}/{profile}/mod.json:
+
+```
+// Mods
+const mods = {
+    "@cba": "450814997",
+    "@ace": "463939057"
+}
+
+// Server mods
+const serverMods = {
+    "@vcom_ai": "721359761"
+}
+```
 
 ### V3.0
+
+#### Features
+
+- [ ] Run on all OS
+
+### V4.0
 
 #### Features
 
