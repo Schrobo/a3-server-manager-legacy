@@ -30,10 +30,16 @@ $ git clone https://github.com/schrobo/a3-server-manager.git
 
 ### Commands
 
+#### List of all commands
+
+```
+$ node app.js
+```
+
 #### Install manager
 
 ```
-$ ode app.js install
+$ node app.js install
 ```
 
 #### Update server and mods
