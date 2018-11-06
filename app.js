@@ -114,7 +114,6 @@ const returnUpdateCommand = (updateType) => {
 }
 
 const copyTemplates = () => {
-    console.log(`Copying templates from "${templateDir}" to "${serverDir}"`);
     execSyncCommand (`cp -r ${templateDir}. ${serverDir}`);
 }
 
@@ -124,7 +123,6 @@ const lowercaseMods = () => {
 }
 
 const copyKeys = (mods) => {
-    console.log(`Copying keys from "${serverDir}${workshopDir}${mods[mod]}/keys/" to "${serverDir}keys/"`);
     for (let mod in mods) {
         execSyncCommand(`cp -r ${serverDir}${workshopDir}${mods[mod]}/keys/. ${serverDir}keys/`)
     }
