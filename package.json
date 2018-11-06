@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/schrobo/a3-server-manager/issues"
   },
-  "homepage": "https://github.com/schrobo/a3-server-manager#readme"
+  "homepage": "https://github.com/schrobo/a3-server-manager#readme",
+  "dependencies": {
+    "replace-in-file": "^3.4.2"
+  }
 }
