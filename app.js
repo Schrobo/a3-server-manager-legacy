@@ -1,14 +1,11 @@
-/** ################################################# */
-/** ############### Settings begin here ############# */
-
-// File containing profiles
-const profilesFile = `./profiles.json`;
+const fs = require('fs');
+const { execSync } = require('child_process');
 
 // Directory where server should be installed
 const serverDir = `./serverfiles/`;
 
-/** ############### Settings end here ############### */
-/** ################################################# */
+// File containing profiles
+const profilesFile = `./profiles.json`;
 
 // Directory where mods are stored
 const workshopDir = `steamapps/workshop/content/107410/`
@@ -16,19 +13,19 @@ const workshopDir = `steamapps/workshop/content/107410/`
 // Arguments passed by user
 const args = process.argv.slice(2);
 
-const fs = require('fs');
-const { execSync } = require('child_process');
-const execSyncCommand = command => execSync(command, {stdio:[0,1,2]});
-
 /**
  * Functions
  */
 
-const checkRequirements = (username, password) => {
+const execSyncCommand = command => execSync(command, {stdio:[0,1,2]});
+
+const checkRequirements = () => {
     if (process.platform !== 'linux') {
         throw new Error("Your operating system is not linux!");
     }
+}
 
+const checkArgs = () => {
     // if (username | password == null) {
     //     throw new Error(`No username or password provided!
     //     Use 'install "USERNAME" "PASSWORD"'`);
@@ -87,7 +84,7 @@ const returnServerModParameter = () => {
  */
 
 const install = (username, password) => {
-    checkRequirements(username, password);
+    checkRequirements();
 
     // Requirements for server and installation
     const requirements =
@@ -121,7 +118,7 @@ if (args[0] === 'install') {
  */
 
 const update = (username, password) => {
-    checkRequirements(username, password);
+    checkRequirements();
 
     updateArmA3(username, password);
     updateMods(username, password);
