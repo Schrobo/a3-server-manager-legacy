@@ -70,10 +70,6 @@ const returnSettings = (name, profile) => {
         return settings['profiles']
             .find(profiles => profiles['profile'] == profile)['mods'];
     }
-    if (name === 'serverModKeys' && profile) {
-        return settings['profiles']
-            .find(profiles => profiles['profile'] == profile)['serverMods'];
-    }
 }
 
 // Return mod lists for SteamCMD update
@@ -180,7 +176,6 @@ if (args[0] === 'update') {
     execSyncCommand(returnUpdateCommand(args[2]));
     lowercaseMods();
     copyKeys(returnSettings('modKeys', args[1]));
-    copyKeys(returnSettings('serverModKeys', args[1]));
 }
 
 if (args[0] === 'start') {
