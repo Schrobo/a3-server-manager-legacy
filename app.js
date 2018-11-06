@@ -8,10 +8,10 @@ const serverDir = `./serverfiles/`;
 const profilesFile = `./profiles.json`;
 
 // Directory where templates are stored
-const templateDir = `./templates/`
+const templateDir = `./templates/`;
 
 // Directory where mods are stored
-const workshopDir = `steamapps/workshop/content/107410/`
+const workshopDir = `steamapps/workshop/content/107410/`;
 
 // Arguments passed by user
 const args = process.argv.slice(2);
