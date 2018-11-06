@@ -1,31 +1,43 @@
-[
-    {
-        "profile" : "default",
-        "mods" : {
-            "@cba": "450814997",
-            "@achilles": "723217262",
-            "@nss_console": "626264195",
-            "@3den_enhanced": "623475643",
-            "@enhanced_movement": "333310405",
-            "@sling": "615007497",
-            "@towing": "639837898",
-            "@rappeling": "713709341",
-            "@urban_rappeling": "730310357",
-            "@wmo": "925018569",
-            "@task_force_radio": "620019431",
-            "@reduced_weap_sway": "567737932",
-            "@alive": "620260972",
-            "@shacktac_ui": "498740884",
-            "@ace": "463939057",
-            "@acex": "708250744"
-            },
-        "serverMods" : {
-            "@vcom_ai": "721359761"
+{
+    "steamUsername" : "username",
+    "steamPassword" : "password",
+    "profiles": [
+        {
+            "profile" : "default",
+            "serverName" : "ArmA 3 Server with mods",
+            "serverPassword" : "",
+            "serverAdminPassword" : "",
+            "serverAdminUID" : "",
+            "mods" : {
+                "@cba": "450814997",
+                "@achilles": "723217262",
+                "@nss_console": "626264195",
+                "@3den_enhanced": "623475643",
+                "@enhanced_movement": "333310405",
+                "@sling": "615007497",
+                "@towing": "639837898",
+                "@rappeling": "713709341",
+                "@urban_rappeling": "730310357",
+                "@wmo": "925018569",
+                "@task_force_radio": "620019431",
+                "@reduced_weap_sway": "567737932",
+                "@alive": "620260972",
+                "@shacktac_ui": "498740884",
+                "@ace": "463939057",
+                "@acex": "708250744"
+                },
+            "serverMods" : {
+                "@vcom_ai": "721359761"
+            }
+        },
+        {
+            "profile" : "empty",
+            "serverName" : "ArmA 3 Server without mods",
+            "serverPassword" : "",
+            "serverAdminPassword" : "",
+            "serverAdminUID" : "",
+            "mods" : {},
+            "serverMods" : {}
         }
-    },
-    {
-        "profile" : "empty",
-        "mods" : {},
-        "serverMods" : {}
-    }
-]
+    ]
+}
