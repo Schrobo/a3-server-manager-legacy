@@ -4,8 +4,8 @@ const { execSync } = require('child_process');
 // Directory where server should be installed
 const serverDir = `./serverfiles/`;
 
-// File containing profiles
-const profilesFile = `./profiles.json`;
+// File containing settings
+const settingsFile = `./settings.json`;
 
 // Directory where templates are stored
 const templateDir = `./templates/`;
@@ -40,9 +40,9 @@ const checkPlatform = () => {
     }
 }
 
-// Return profiles content
-const returnProfileData = (name) => {
-    let data = fs.readFileSync(`${profilesFile}`);
+// Return settings content
+const returnSettingsData = (name) => {
+    let data = fs.readFileSync(`${settingsFile}`);
     data = JSON.parse(data);
     return data;
 }
