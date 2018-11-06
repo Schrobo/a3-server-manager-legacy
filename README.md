@@ -45,7 +45,7 @@ $ node app.js install
 #### Update server and mods
 
 ```
-$ node app.js update [username] [password] [profile]
+$ node app.js update [username] [password] [profile] -a
 ```
 
 #### Update server
