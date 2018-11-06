@@ -1,6 +1,6 @@
-# A3 Server Manager (WIP)
+# A3 Server Manager V2.0 (WIP)
 
-A3 Server Manager is a simple to use server manager for your ArmA 3 server and mods on Linux. It is build with Node.js and runs from your terminal.
+A3 Server Manager is a simple to use server manager for your ArmA 3 server on Linux. It is build with Node.js and runs from your terminal.
 
 ## How to use
 
@@ -31,27 +31,40 @@ $ git clone https://github.com/schrobo/a3-server-manager.git
 
 ### Commands
 
-#### Install dependencies, server and mods
+#### Install manager
 
 ```
-$ node app.js install "USERNAME" "PASSWORD"
+$ ode app.js install
 ```
 
 #### Update server and mods
 
 ```
-$ node app.js update "USERNAME" "PASSWORD"
+$ node app.js update [username] [password] [profile] -a
 ```
 
-#### Manually rename (lowercase) mods
+#### Update server
+
 ```
-find ./serverfiles/steamapps/workshop/content/107410/ -depth -exec rename 's/(.*)\/([^\/]*)/$1\/\L$2/' {} \;
+$ node app.js update [username] [password] [profile] -s
+```
+
+#### Update mods
+
+```
+$ node app.js update [username] [password] [profile] -m
 ```
 
 #### Start server
 
 ```
-$ node app.js start
+$ node app.js start [profile]
+```
+
+#### Start headless client
+
+```
+$ node app.js start [profile] -hc
 ```
 
 ## Roadmap
@@ -100,13 +113,13 @@ $ node app.js start
 
 #### Commands
 
-- [ ] node app.js install [username] [password]
+- [ ] node app.js install
 - [ ] node app.js update [username] [password] [profile] -s/-m/-a
 - [ ] node app.js start [profile] (-hc)
 
 #### Mods settings
 
-- [X] Mod configuration inside {profiledir}/{profile}/mod.json:
+- [ ] Mod configuration inside profiles.json:
 
 ```
 // Mods
