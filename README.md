@@ -11,8 +11,7 @@ A3 Server Manager is a simple to use server manager for your ArmA 3 server on Li
 ```
 $ adduser --gecos "" steam && \
 usermod -aG sudo steam && \
-su steam && \
-cd ~ \
+su steam
 ```
 
 #### 1. Install Node.js (Recommended: [NVM](https://github.com/creationix/nvm#install-script))
