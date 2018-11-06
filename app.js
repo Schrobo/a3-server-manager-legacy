@@ -7,11 +7,26 @@ const serverDir = `./serverfiles/`;
 // File containing profiles
 const profilesFile = `./profiles.json`;
 
+// Directory where templates are stored
+const templateDir = `./templates/`
+
 // Directory where mods are stored
 const workshopDir = `steamapps/workshop/content/107410/`
 
 // Arguments passed by user
 const args = process.argv.slice(2);
+
+// Requirements for server and installation
+const requirements =
+`lib32gcc1 \
+lib32z1 \
+lib32ncurses5 \
+lib32gcc1 \
+lib32stdc++6 \
+curl \
+tar \
+rename \
+screen \ `;
 
 /**
  * Functions
@@ -32,91 +47,75 @@ const checkArgs = () => {
     // }
 }
 
-// Return string (part of command) for update server or mods
+// Return profiles content
+const profile = (name) => {
+    let data = fs.readFileSync(`${profilesFile}`).JSON.parse;
+    return data
+}
+
+// Return mod lists for SteamCMD update
+const returnUpdateModList = (modType) => {
+    let modList = ' ';
+    console.log(`Updating mods:`)
+    for (let mod in modType) {
+        console.log(`Modname: ${mod} --> ID: ${modType[mod]}`)
+        modList += `+workshop_download_item 107410 ${modType[mod]} `;
+    }
+    return modList
+}
+
+// Return mod lists for server start
+const returnModList = (modType) => {
+    let modParameter = '\\;';
+    console.log(`Launching with mods:`)
+    for (let mod in modType) {
+        console.log(`Modname: ${mod} --> ID: ${modType[mod]}`)
+        modParameter += `${workshopDir}${modType[mod]}\\;`;
+    }
+    return modParameter;
+}
+
+// Return command for update server and/or mods via SteamCMD
 const returnUpdateCommand = (updateType) => {
-    let cmd = `./steamcmd.sh `
+    let updateCommand = `./steamcmd.sh `
     if (updateType === 'updateServer') {
         // return update Server
-        cmd += `+login "${username}" "${password}" +force_install_dir ${serverDir} +app_update 233780 validate +quit`;
+        updateCommand += `+login "${username}" "${password}" +force_install_dir ${serverDir} +app_update 233780 validate +quit`;
     }
     if (updateType === 'updateMods') {
         // return update Mods
-        cmd += `+login "${username}" "${password}" +force_install_dir ${serverDir} ${modList} validate +quit`;
+        updateCommand += `+login "${username}" "${password}" +force_install_dir ${serverDir} ${modList} +quit`;
     }
     if (updateType === 'updateAll') {
         // return update Server Mods
-        cmd += `+login "${username}" "${password}" +force_install_dir ${serverDir} +app_update 233780 validate ${modList} +quit`;
+        updateCommand += `+login "${username}" "${password}" +force_install_dir ${serverDir} +app_update 233780 validate ${modList} +quit`;
     }
     else {
-        throw new Error("What do you want to update?");
+        throw new Error("Something went wrong while trying to update!");
     }
-}
-
-const updateArmA3 = (username, password) => {
-    execSyncCommand (`./steamcmd.sh +login "${username}" "${password}" +force_install_dir ${serverDir} +app_update 233780 validate +quit`);
+    return updateCommand;
 }
 
 const copyTemplates = () => {
-    execSyncCommand (`cp -r ./templates/. ${serverDir}`);
-}
-
-const updateMods = (username, password) => {
-    let modList = ' ';
-    for (let mod in mods) {
-        console.log(`Modname: ${mod} --> ID: ${mods[mod]}`)
-        modList += `+workshop_download_item 107410 ${mods[mod]} `;
-    }
-    execSyncCommand (`./steamcmd.sh +login "${username}" "${password}" +force_install_dir ${serverDir} ${modList} validate +quit`);
-    lowercaseMods();
-    copyKeys();
+    execSyncCommand (`cp -r ${templateDir}. ${serverDir}`);
 }
 
 const lowercaseMods = () => {
      execSyncCommand(`find ${serverDir}${workshopDir} -depth -exec rename 's/(.*)\\/([^\\/]*)/$1\\/\\L$2/' {} \\;`);
 }
 
-const copyKeys = () => {
-    for (let mod in mods) {
-        execSyncCommand(`cp -r ${serverDir}${workshopDir}${mods[mod]}/keys/. ${serverDir}keys/`)
+const copyKeys = (modType) => {
+    for (let mod in modType) {
+        execSyncCommand(`cp -r ${serverDir}${workshopDir}${modType[mod]}/keys/. ${serverDir}keys/`)
     }
-}
-
-const returnModParameter = () => {
-    let parameter = '\\;';
-    for (let mod in mods) {
-        console.log(`Modname: ${mod} --> ID: ${mods[mod]}`)
-        parameter += `${workshopDir}${mods[mod]}\\;`;
-    }
-    return parameter;
-}
-
-const returnServerModParameter = () => {
-    let parameter = '\\;';
-    for (let mod in serverMods) {
-        console.log(`Modname: ${mod} --> ID: ${serverMods[mod]}`)
-        parameter += `${workshopDir}${serverMods[mod]}\\;`;
-    }
-    return parameter;
 }
 
 /**
  * Command: install
  */
 
-const install = (username, password) => {
+const install = () => {
     checkRequirements();
-
-    // Requirements for server and installation
-    const requirements =
-        `lib32gcc1 \
-        lib32z1 \
-        lib32ncurses5 \
-        lib32gcc1 \
-        lib32stdc++6 \
-        curl \
-        tar \
-        rename \
-        screen \ `;
 
     // Install requirements
     execSyncCommand (`sudo apt-get update && sudo apt-get install ${requirements} -y`);
@@ -124,13 +123,11 @@ const install = (username, password) => {
     // Download and extract SteamCMD
     execSyncCommand (`curl -sqL "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz" | tar zxvf -`);
 
-    updateArmA3(username, password);
     copyTemplates();
-    updateMods(username, password);
 }
 
 if (args[0] === 'install') {
-    install(args[1], args[2]);
+    install();
 }
 
 /**
@@ -140,7 +137,7 @@ if (args[0] === 'install') {
 const update = (username, password) => {
     checkRequirements();
 
-    updateArmA3(username, password);
+    updateServer(username, password);
     updateMods(username, password);
 }
 
