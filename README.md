@@ -69,7 +69,7 @@ $ node app.js start [profile]
 #### Start headless client
 
 ```
-$ node app.js start [profile] -hc
+$ node app.js start [profile] -hc [ip]
 ```
 
 ## Roadmap
@@ -111,16 +111,17 @@ $ node app.js start [profile] -hc
 
 #### Features
 
-- [ ] Easier and more intuitive operation
-- [ ] "Profiles" for different server configurations
-- [ ] Run profile as headless client
-- [ ] "Advanced"/Better commands
+- [X] Easier and more intuitive operation
+- [X] "Profiles" for different server configurations
+- [ ] Different server.cfg for different profiles
+- [X] Run profile as headless client
+- [X] "Advanced"/Better commands
 
 #### Commands
 
-- [ ] node app.js install
-- [ ] node app.js update [profile] -s/-m/-a
-- [ ] node app.js start [profile] (-hc)
+- [X] node app.js install
+- [X] node app.js update [profile] -s/-m/-a
+- [X] node app.js start [profile] (-hc [ip])
 
 #### Mods settings
 
