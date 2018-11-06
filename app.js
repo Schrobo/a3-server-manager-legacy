@@ -179,8 +179,8 @@ if (args[0] === 'update') {
 }
 
 if (args[0] === 'start') {
-    if (args[2] === '-hc') {
-        const startupCommand = `./arma3server -name=server -client -connect=${args[3]} -mod=${returnSettings('modList', args[1])} -serverMod=${returnSettings('serverModList', args[1])}`;
+    if (args[2] === '-hc') { (x === undefined) ? def_val : x;
+        const startupCommand = `./arma3server -name=server -client -connect=${(args[3] === undefined) ? '127.0.0.1' : args[3]} -mod=${returnSettings('modList', args[1])}`;
 
         // Create file containing startupCommand.
         fs.writeFile(`${serverDir}start.sh`, startupCommand, function (err) {
