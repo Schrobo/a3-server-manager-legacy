@@ -1,54 +1,38 @@
 /** ################################################# */
 /** ############### Settings begin here ############# */
 
-// Directories
+// File containing profiles
+const profilesFile = `./profiles.json`;
+
+// Directory where server should be installed
 const serverDir = `./serverfiles/`;
-const workshopDir = `steamapps/workshop/content/107410/`
-
-// Mods
-const mods = {
-    "@cba": "450814997",
-    "@achilles": "723217262",
-    "@nss_console": "626264195",
-    "@3den_enhanced": "623475643",
-    "@enhanced_movement": "333310405",
-    "@sling": "615007497",
-    "@towing": "639837898",
-    "@rappeling": "713709341",
-    "@urban_rappeling": "730310357",
-    "@wmo": "925018569",
-    "@task_force_radio": "620019431",
-    "@reduced_weap_sway": "567737932",
-    "@alive": "620260972",
-    "@shacktac_ui": "498740884",
-    "@ace": "463939057",
-    "@acex": "708250744",
-}
-
-// Server mods
-const serverMods = {
-    "@vcom_ai": "721359761"
-}
 
 /** ############### Settings end here ############### */
 /** ################################################# */
+
+// Directory where mods are stored
+const workshopDir = `steamapps/workshop/content/107410/`
+
+// Arguments passed by user
+const args = process.argv.slice(2);
 
 const fs = require('fs');
 const { execSync } = require('child_process');
 const execSyncCommand = command => execSync(command, {stdio:[0,1,2]});
 
-// Arguments passed by user
-const args = process.argv.slice(2);
+/**
+ * Functions
+ */
 
 const checkRequirements = (username, password) => {
     if (process.platform !== 'linux') {
         throw new Error("Your operating system is not linux!");
     }
 
-    if (username | password == null) {
-        throw new Error(`No username or password provided!
-        Use 'install "USERNAME" "PASSWORD"'`);
-    }
+    // if (username | password == null) {
+    //     throw new Error(`No username or password provided!
+    //     Use 'install "USERNAME" "PASSWORD"'`);
+    // }
 }
 
 const updateArmA3 = (username, password) => {
