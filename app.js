@@ -173,6 +173,9 @@ if (args[0] === 'install') {
 if (args[0] === 'update') {
     checkPlatform();
     execSyncCommand(returnUpdateCommand(args[2]));
+    lowercaseMods();
+    copyKeys(returnSettings('modList', args[1]));
+    copyKeys(returnSettings('serverModList', args[1]));
 }
 
 if (args[0] === 'start') {
