@@ -48,7 +48,6 @@ const returnSettings = (name, profile) => {
         return settings;
     }
     let settings = readSettings();
-    // console.log(settings);
     if (name === 'steamUsername' || name === 'steamPassword') {
         return settings[name];
     }
@@ -66,6 +65,14 @@ const returnSettings = (name, profile) => {
     if (name === 'serverModList' && profile) {
         return returnModList(settings['profiles']
             .find(profiles => profiles['profile'] == profile)['serverMods']);
+    }
+    if (name === 'modKeys' && profile) {
+        return settings['profiles']
+            .find(profiles => profiles['profile'] == profile)['mods'];
+    }
+    if (name === 'serverModKeys' && profile) {
+        return settings['profiles']
+            .find(profiles => profiles['profile'] == profile)['serverMods'];
     }
 }
 
@@ -140,7 +147,7 @@ if (args[0] == null) {
         $ node app.js install
 
         Update server and mods
-        $ node app.js update [profile]
+        $ node app.js update [profile] -a
 
         Update server
         $ node app.js update [profile] -s
@@ -172,8 +179,8 @@ if (args[0] === 'update') {
     checkPlatform();
     execSyncCommand(returnUpdateCommand(args[2]));
     lowercaseMods();
-    copyKeys(returnSettings('modList', args[1]));
-    copyKeys(returnSettings('serverModList', args[1]));
+    copyKeys(returnSettings('modKeys', args[1]));
+    copyKeys(returnSettings('serverModKeys', args[1]));
 }
 
 if (args[0] === 'start') {
