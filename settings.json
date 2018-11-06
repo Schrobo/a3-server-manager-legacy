@@ -1,6 +1,6 @@
 {
-    "steamUsername" : "username",
-    "steamPassword" : "password",
+    "steamUsername" : "steam_username",
+    "steamPassword" : "steam_password",
     "profiles": [
         {
             "profile" : "default",
