@@ -34,7 +34,7 @@ screen \ `;
 
 const execSyncCommand = command => execSync(command, {stdio:[0,1,2]});
 
-const checkRequirements = () => {
+const checkPlatform = () => {
     if (process.platform !== 'linux') {
         throw new Error("Your operating system is not linux!");
     }
@@ -48,9 +48,10 @@ const checkArgs = () => {
 }
 
 // Return profiles content
-const profile = (name) => {
-    let data = fs.readFileSync(`${profilesFile}`).JSON.parse;
-    return data
+const returnProfileData = (name) => {
+    let data = fs.readFileSync(`${profilesFile}`);
+    data = JSON.parse(data);
+    return data;
 }
 
 // Return mod lists for SteamCMD update
@@ -61,18 +62,18 @@ const returnUpdateModList = (modType) => {
         console.log(`Modname: ${mod} --> ID: ${modType[mod]}`)
         modList += `+workshop_download_item 107410 ${modType[mod]} `;
     }
-    return modList
+    return modList;
 }
 
 // Return mod lists for server start
 const returnModList = (modType) => {
-    let modParameter = '\\;';
+    let modList = '\\;';
     console.log(`Launching with mods:`)
     for (let mod in modType) {
         console.log(`Modname: ${mod} --> ID: ${modType[mod]}`)
-        modParameter += `${workshopDir}${modType[mod]}\\;`;
+        modList += `${workshopDir}${modType[mod]}\\;`;
     }
-    return modParameter;
+    return modList;
 }
 
 // Return command for update server and/or mods via SteamCMD
@@ -90,21 +91,21 @@ const returnUpdateCommand = (updateType) => {
         // return update Server Mods
         updateCommand += `+login "${username}" "${password}" +force_install_dir ${serverDir} +app_update 233780 validate ${modList} +quit`;
     }
-    else {
-        throw new Error("Something went wrong while trying to update!");
-    }
     return updateCommand;
 }
 
 const copyTemplates = () => {
+    console.log(`Copying templates from "${templateDir}" to "${serverDir}"`);
     execSyncCommand (`cp -r ${templateDir}. ${serverDir}`);
 }
 
 const lowercaseMods = () => {
-     execSyncCommand(`find ${serverDir}${workshopDir} -depth -exec rename 's/(.*)\\/([^\\/]*)/$1\\/\\L$2/' {} \\;`);
+    console.log(`Lowercasing mods... (This might take a while!)`);
+    execSyncCommand(`find ${serverDir}${workshopDir} -depth -exec rename 's/(.*)\\/([^\\/]*)/$1\\/\\L$2/' {} \\;`);
 }
 
 const copyKeys = (modType) => {
+    console.log(`Copying keys from "${serverDir}${workshopDir}${modType[mod]}/keys/" to "${serverDir}keys/"`);
     for (let mod in modType) {
         execSyncCommand(`cp -r ${serverDir}${workshopDir}${modType[mod]}/keys/. ${serverDir}keys/`)
     }
@@ -115,7 +116,7 @@ const copyKeys = (modType) => {
  */
 
 const install = () => {
-    checkRequirements();
+    checkPlatform();
 
     // Install requirements
     execSyncCommand (`sudo apt-get update && sudo apt-get install ${requirements} -y`);
@@ -135,7 +136,7 @@ if (args[0] === 'install') {
  */
 
 const update = (username, password) => {
-    checkRequirements();
+    checkPlatform();
 
     updateServer(username, password);
     updateMods(username, password);
