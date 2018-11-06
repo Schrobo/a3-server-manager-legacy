@@ -36,7 +36,7 @@ const execSyncCommand = command => execSync(command, {stdio:[0,1,2]});
 
 const checkPlatform = () => {
     if (process.platform !== 'linux') {
-        throw new Error("Your operating system is not linux!");
+        throw new Error("Your operating system has to be linux!");
     }
 }
 
