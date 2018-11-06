@@ -1,6 +1,6 @@
-# A3 Server Manager (WIP)
+# A3 Server Manager V2.0 (WIP)
 
-A3 Server Manager is a simple to use server manager for your ArmA 3 server and mods on Linux. It is build with Node.js and runs from your terminal.
+A3 Server Manager is a simple to use server manager for your ArmA 3 server on Linux. It is build with Node.js and runs from your terminal.
 
 ## How to use
 
@@ -11,8 +11,7 @@ A3 Server Manager is a simple to use server manager for your ArmA 3 server and m
 ```
 $ adduser --gecos "" steam && \
 usermod -aG sudo steam && \
-su steam && \
-cd ~ \
+su steam
 ```
 
 #### 1. Install Node.js (Recommended: [NVM](https://github.com/creationix/nvm#install-script))
@@ -31,27 +30,46 @@ $ git clone https://github.com/schrobo/a3-server-manager.git
 
 ### Commands
 
-#### Install dependencies, server and mods
+#### List of all commands
 
 ```
-$ node app.js install "USERNAME" "PASSWORD"
+$ node app.js
+```
+
+#### Install manager
+
+```
+$ node app.js install
 ```
 
 #### Update server and mods
 
 ```
-$ node app.js update "USERNAME" "PASSWORD"
+$ node app.js update [profile] -a
 ```
 
-#### Manually rename (lowercase) mods
+#### Update server
+
 ```
-find ./serverfiles/steamapps/workshop/content/107410/ -depth -exec rename 's/(.*)\/([^\/]*)/$1\/\L$2/' {} \;
+$ node app.js update [profile] -s
+```
+
+#### Update mods
+
+```
+$ node app.js update [profile] -m
 ```
 
 #### Start server
 
 ```
-$ node app.js start
+$ node app.js start [profile]
+```
+
+#### Start headless client
+
+```
+$ node app.js start [profile] -hc [ip]
 ```
 
 ## Roadmap
@@ -93,9 +111,42 @@ $ node app.js start
 
 #### Features
 
-- [ ] Run on all OS
+- [X] Easier and more intuitive operation
+- [X] "Profiles" for different server configurations
+- [ ] Different server.cfg for different profiles
+- [X] Run profile as headless client
+- [X] "Advanced"/Better commands
+
+#### Commands
+
+- [X] node app.js install
+- [X] node app.js update [profile] -s/-m/-a
+- [X] node app.js start [profile] (-hc [ip])
+
+#### Mods settings
+
+- [ ] Mod configuration inside profiles.json:
+
+```
+// Mods
+const mods = {
+    "@cba": "450814997",
+    "@ace": "463939057"
+}
+
+// Server mods
+const serverMods = {
+    "@vcom_ai": "721359761"
+}
+```
 
 ### V3.0
+
+#### Features
+
+- [ ] Run on all OS
+
+### V4.0
 
 #### Features
 
