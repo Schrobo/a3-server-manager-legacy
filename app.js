@@ -32,6 +32,26 @@ const checkArgs = () => {
     // }
 }
 
+// Return string (part of command) for update server or mods
+const returnUpdateCommand = (updateType) => {
+    let cmd = `./steamcmd.sh `
+    if (updateType === 'updateServer') {
+        // return update Server
+        cmd += `+login "${username}" "${password}" +force_install_dir ${serverDir} +app_update 233780 validate +quit`;
+    }
+    if (updateType === 'updateMods') {
+        // return update Mods
+        cmd += `+login "${username}" "${password}" +force_install_dir ${serverDir} ${modList} validate +quit`;
+    }
+    if (updateType === 'updateAll') {
+        // return update Server Mods
+        cmd += `+login "${username}" "${password}" +force_install_dir ${serverDir} +app_update 233780 validate ${modList} +quit`;
+    }
+    else {
+        throw new Error("What do you want to update?");
+    }
+}
+
 const updateArmA3 = (username, password) => {
     execSyncCommand (`./steamcmd.sh +login "${username}" "${password}" +force_install_dir ${serverDir} +app_update 233780 validate +quit`);
 }
