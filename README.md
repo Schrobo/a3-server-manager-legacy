@@ -45,19 +45,19 @@ $ node app.js install
 #### Update server and mods
 
 ```
-$ node app.js update [username] [password] [profile] -a
+$ node app.js update [profile] -a
 ```
 
 #### Update server
 
 ```
-$ node app.js update [username] [password] [profile] -s
+$ node app.js update [profile] -s
 ```
 
 #### Update mods
 
 ```
-$ node app.js update [username] [password] [profile] -m
+$ node app.js update [profile] -m
 ```
 
 #### Start server
@@ -119,7 +119,7 @@ $ node app.js start [profile] -hc
 #### Commands
 
 - [ ] node app.js install
-- [ ] node app.js update [username] [password] [profile] -s/-m
+- [ ] node app.js update [profile] -s/-m/-a
 - [ ] node app.js start [profile] (-hc)
 
 #### Mods settings
