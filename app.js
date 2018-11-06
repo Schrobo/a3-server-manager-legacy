@@ -40,13 +40,6 @@ const checkPlatform = () => {
     }
 }
 
-const checkArgs = () => {
-    // if (username | password == null) {
-    //     throw new Error(`No username or password provided!
-    //     Use 'install "USERNAME" "PASSWORD"'`);
-    // }
-}
-
 // Return profiles content
 const returnProfileData = (name) => {
     let data = fs.readFileSync(`${profilesFile}`);
@@ -127,10 +120,6 @@ const install = () => {
     copyTemplates();
 }
 
-if (args[0] === 'install') {
-    install();
-}
-
 /**
  * Command: update
  */
@@ -140,10 +129,6 @@ const update = (username, password) => {
 
     updateServer(username, password);
     updateMods(username, password);
-}
-
-if (args[0] === 'update') {
-    update(args[1], args[2]);
 }
 
 /**
@@ -165,6 +150,39 @@ const start = () => {
     execSyncCommand(`screen -dmS arma3server && screen -S arma3server -X stuff 'cd ${serverDir} && ./start.sh \n'`);
 }
 
+/**
+ * Execution
+ */
+
+if (args[0] == null) {
+    console.log(`
+        \x1b[1mCommands:\x1b[0m
+
+        Install manager
+        $ node app.js install
+
+        Update server and mods
+        $ node app.js update [username] [password] [profile]
+
+        Update server
+        $ node app.js update [username] [password] [profile] -s
+
+        Update mods
+        $ node app.js update [username] [password] [profile] -m
+
+        #### Start server
+        $ node app.js start [profile]
+
+        #### Start headless client
+        $ node app.js start [profile] -hc
+    `);
+}
+if (args[0] === 'install') {
+    // install();
+}
+if (args[0] === 'update') {
+    // update();
+}
 if (args[0] === 'start') {
-    start();
+    // start();
 }
