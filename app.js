@@ -36,53 +36,79 @@ const execSyncCommand = command => execSync(command, {stdio:[0,1,2]});
 
 const checkPlatform = () => {
     if (process.platform !== 'linux') {
-        throw new Error("Your operating system has to be linux!");
+        throw new Error('Your operating system has to be linux!');
     }
 }
 
-// Return settings content
-const returnSettingsData = (name) => {
-    let data = fs.readFileSync(`${settingsFile}`);
-    data = JSON.parse(data);
-    return data;
+// Return specific setting from settings
+const returnSettings = (name, profile) => {
+    const readSettings = () => {
+        let settings = fs.readFileSync(`${settingsFile}`);
+        settings = JSON.parse(settings);
+        return settings;
+    }
+    let settings = readSettings();
+    // console.log(settings);
+    if (name === 'steamUsername' || name === 'steamPassword') {
+        return settings[name];
+    }
+    if (name === 'updateModList' && profile) {
+        let output = returnUpdateModList(settings['profiles']
+            .find(profiles => profiles['profile'] == profile)['mods']);
+        output += returnUpdateModList(settings['profiles']
+            .find(profiles => profiles['profile'] == profile)['serverMods']);
+        return output;
+    }
+    if (name === 'modList' && profile) {
+        return returnModList(settings['profiles']
+            .find(profiles => profiles['profile'] == profile)['mods']);
+    }
+    if (name === 'serverModList' && profile) {
+        return returnModList(settings['profiles']
+            .find(profiles => profiles['profile'] == profile)['serverMods']);
+    }
 }
 
 // Return mod lists for SteamCMD update
-const returnUpdateModList = (modType) => {
+const returnUpdateModList = (mods) => {
     let modList = ' ';
     console.log(`Updating mods:`)
-    for (let mod in modType) {
-        console.log(`Modname: ${mod} --> ID: ${modType[mod]}`)
-        modList += `+workshop_download_item 107410 ${modType[mod]} `;
+    for (let mod in mods) {
+        console.log(`Modname: ${mod} --> ID: ${mods[mod]}`)
+        modList += `+workshop_download_item 107410 ${mods[mod]} `;
     }
     return modList;
 }
 
 // Return mod lists for server start
-const returnModList = (modType) => {
+const returnModList = (mods) => {
     let modList = '\\;';
     console.log(`Launching with mods:`)
-    for (let mod in modType) {
-        console.log(`Modname: ${mod} --> ID: ${modType[mod]}`)
-        modList += `${workshopDir}${modType[mod]}\\;`;
+    for (let mod in mods) {
+        console.log(`Modname: ${mod} --> ID: ${mods[mod]}`)
+        modList += `${workshopDir}${mods[mod]}\\;`;
     }
     return modList;
 }
 
 // Return command for update server and/or mods via SteamCMD
 const returnUpdateCommand = (updateType) => {
+    const steamUsername = returnSettings('steamUsername');
+    const steamPassword = returnSettings('steamPassword');
+    const modList = returnSettings('updateModList', args[1]);
+
     let updateCommand = `./steamcmd.sh `
-    if (updateType === 'updateServer') {
+    if (updateType === '-s') {
         // return update Server
-        updateCommand += `+login "${username}" "${password}" +force_install_dir ${serverDir} +app_update 233780 validate +quit`;
+        updateCommand += `+login "${steamUsername}" "${steamPassword}" +force_install_dir ${serverDir} +app_update 233780 validate +quit`;
     }
-    if (updateType === 'updateMods') {
+    if (updateType === '-m') {
         // return update Mods
-        updateCommand += `+login "${username}" "${password}" +force_install_dir ${serverDir} ${modList} +quit`;
+        updateCommand += `+login "${steamUsername}" "${steamPassword}" +force_install_dir ${serverDir} ${modList} +quit`;
     }
-    if (updateType === 'updateAll') {
+    if (updateType === '-a') {
         // return update Server Mods
-        updateCommand += `+login "${username}" "${password}" +force_install_dir ${serverDir} +app_update 233780 validate ${modList} +quit`;
+        updateCommand += `+login "${steamUsername}" "${steamPassword}" +force_install_dir ${serverDir} +app_update 233780 validate ${modList} +quit`;
     }
     return updateCommand;
 }
@@ -97,57 +123,11 @@ const lowercaseMods = () => {
     execSyncCommand(`find ${serverDir}${workshopDir} -depth -exec rename 's/(.*)\\/([^\\/]*)/$1\\/\\L$2/' {} \\;`);
 }
 
-const copyKeys = (modType) => {
-    console.log(`Copying keys from "${serverDir}${workshopDir}${modType[mod]}/keys/" to "${serverDir}keys/"`);
-    for (let mod in modType) {
-        execSyncCommand(`cp -r ${serverDir}${workshopDir}${modType[mod]}/keys/. ${serverDir}keys/`)
+const copyKeys = (mods) => {
+    console.log(`Copying keys from "${serverDir}${workshopDir}${mods[mod]}/keys/" to "${serverDir}keys/"`);
+    for (let mod in mods) {
+        execSyncCommand(`cp -r ${serverDir}${workshopDir}${mods[mod]}/keys/. ${serverDir}keys/`)
     }
-}
-
-/**
- * Command: install
- */
-
-const install = () => {
-    checkPlatform();
-
-    // Install requirements
-    execSyncCommand (`sudo apt-get update && sudo apt-get install ${requirements} -y`);
-
-    // Download and extract SteamCMD
-    execSyncCommand (`curl -sqL "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz" | tar zxvf -`);
-
-    copyTemplates();
-}
-
-/**
- * Command: update
- */
-
-const update = (username, password) => {
-    checkPlatform();
-
-    updateServer(username, password);
-    updateMods(username, password);
-}
-
-/**
- * Command: start
- */
-
-const start = () => {
-    const modParameter = returnModParameter();
-    const serverModParameter = returnServerModParameter();
-
-    const startupCommand = `./arma3server -name=server -cfg=cfg/arma3server.network.cfg -config=cfg/arma3server.server.cfg -mod=${modParameter} -serverMod=${serverModParameter}`;
-
-    // Create file containing startupCommand.
-    fs.writeFile(`${serverDir}start.sh`, startupCommand, function (err) {
-        if (err) throw err;
-        execSyncCommand(`chmod u+x ${serverDir}start.sh`);
-    });
-
-    execSyncCommand(`screen -dmS arma3server && screen -S arma3server -X stuff 'cd ${serverDir} && ./start.sh \n'`);
 }
 
 /**
@@ -162,13 +142,13 @@ if (args[0] == null) {
         $ node app.js install
 
         Update server and mods
-        $ node app.js update [username] [password] [profile]
+        $ node app.js update [profile]
 
         Update server
-        $ node app.js update [username] [password] [profile] -s
+        $ node app.js update [profile] -s
 
         Update mods
-        $ node app.js update [username] [password] [profile] -m
+        $ node app.js update [profile] -m
 
         #### Start server
         $ node app.js start [profile]
@@ -177,12 +157,44 @@ if (args[0] == null) {
         $ node app.js start [profile] -hc
     `);
 }
+
 if (args[0] === 'install') {
-    // install();
+    checkPlatform();
+
+    // Install requirements
+    execSyncCommand (`sudo apt-get update && sudo apt-get install ${requirements} -y`);
+
+    // Download and extract SteamCMD
+    execSyncCommand (`curl -sqL "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz" | tar zxvf -`);
+
+    copyTemplates();
 }
+
 if (args[0] === 'update') {
-    // update();
+    checkPlatform();
+    execSyncCommand(returnUpdateCommand(args[2]));
 }
+
 if (args[0] === 'start') {
-    // start();
+    if (args[2] === '-hc') {
+        const startupCommand = `./arma3server -name=server -client -mod=${returnSettings('modList', args[1])} -serverMod=${returnSettings('serverModList', args[1])}`;
+
+        // Create file containing startupCommand.
+        fs.writeFile(`${serverDir}start.sh`, startupCommand, function (err) {
+            if (err) throw err;
+            execSyncCommand(`chmod u+x ${serverDir}start.sh`);
+        });
+
+        execSyncCommand(`screen -dmS arma3hc && screen -S arma3hc -X stuff 'cd ${serverDir} && ./start.sh \n'`);
+    } else {
+        const startupCommand = `./arma3server -name=server -cfg=cfg/arma3server.network.cfg -config=cfg/arma3server.server.cfg -mod=${returnSettings('modList', args[1])} -serverMod=${returnSettings('serverModList', args[1])}`;
+
+        // Create file containing startupCommand.
+        fs.writeFile(`${serverDir}start.sh`, startupCommand, function (err) {
+            if (err) throw err;
+            execSyncCommand(`chmod u+x ${serverDir}start.sh`);
+        });
+
+        execSyncCommand(`screen -dmS arma3server && screen -S arma3server -X stuff 'cd ${serverDir} && ./start.sh \n'`);
+    }
 }
