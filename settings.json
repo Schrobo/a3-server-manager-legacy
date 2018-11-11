@@ -7,7 +7,9 @@
             "serverName" : "ArmA 3 Server with mods",
             "serverPassword" : "",
             "serverAdminPassword" : "",
-            "serverAdminUID" : "",
+            "serverAdminUID" : "76561198070955336",
+            "serverMaxPlayers": 50,
+            "serverDisableVoN": 1,
             "mods" : {
                 "@cba": "450814997",
                 "@achilles": "723217262",
@@ -35,7 +37,9 @@
             "serverName" : "ArmA 3 Server without mods",
             "serverPassword" : "",
             "serverAdminPassword" : "",
-            "serverAdminUID" : "",
+            "serverAdminUID" : "76561198070955336",
+            "serverMaxPlayers": 50,
+            "serverDisableVoN": 1,
             "mods" : {},
             "serverMods" : {}
         }

@@ -48,6 +48,7 @@ const returnSettings = (name, profile) => {
         return settings;
     }
     let settings = readSettings();
+    // Steam settings
     if (name === 'steamUsername' || name === 'steamPassword') {
         return settings[name];
     }
@@ -58,6 +59,7 @@ const returnSettings = (name, profile) => {
             .find(profiles => profiles['profile'] == profile)['serverMods']);
         return output;
     }
+    // Server settings
     if (name === 'modList' && profile) {
         return returnModList(settings['profiles']
             .find(profiles => profiles['profile'] == profile)['mods']);
@@ -69,6 +71,31 @@ const returnSettings = (name, profile) => {
     if (name === 'modKeys' && profile) {
         return settings['profiles']
             .find(profiles => profiles['profile'] == profile)['mods'];
+    }
+    // Server cfg settings
+    if (name === 'serverName' && profile) {
+        return settings['profiles']
+            .find(profiles => profiles['profile'] == profile)['serverName'];
+    }
+    if (name === 'serverPassword' && profile) {
+        return settings['profiles']
+            .find(profiles => profiles['profile'] == profile)['serverPassword'];
+    }
+    if (name === 'serverAdminPassword' && profile) {
+        return settings['profiles']
+            .find(profiles => profiles['profile'] == profile)['serverAdminPassword'];
+    }
+    if (name === 'serverAdminUID' && profile) {
+        return settings['profiles']
+            .find(profiles => profiles['profile'] == profile)['serverAdminUID'];
+    }
+    if (name === 'serverMaxPlayers' && profile) {
+        return settings['profiles']
+            .find(profiles => profiles['profile'] == profile)['serverMaxPlayers'];
+    }
+    if (name === 'serverDisableVoN' && profile) {
+        return settings['profiles']
+            .find(profiles => profiles['profile'] == profile)['serverDisableVoN'];
     }
 }
 
