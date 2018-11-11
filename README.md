@@ -112,6 +112,7 @@ $ node app.js start [profile] -hc [ip]
 #### Features
 
 - [X] Easier and more intuitive operation
+- [X] Configuration inside settings.json:
 - [X] "Profiles" for different server configurations
 - [ ] Different server.cfg for different profiles
 - [X] Run profile as headless client
@@ -122,23 +123,6 @@ $ node app.js start [profile] -hc [ip]
 - [X] node app.js install
 - [X] node app.js update [profile] -s/-m/-a
 - [X] node app.js start [profile] (-hc [ip])
-
-#### Mods settings
-
-- [ ] Mod configuration inside profiles.json:
-
-```
-// Mods
-const mods = {
-    "@cba": "450814997",
-    "@ace": "463939057"
-}
-
-// Server mods
-const serverMods = {
-    "@vcom_ai": "721359761"
-}
-```
 
 ### V3.0
 
