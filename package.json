@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/schrobo/a3-server-manager#readme",
   "dependencies": {
-    "replace-in-file": "^3.4.2"
+    "mustache": "^3.0.0"
   }
 }
