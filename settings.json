@@ -1,47 +1,156 @@
 {
-    "steamUsername" : "steam_username",
-    "steamPassword" : "steam_password",
+    "steam" : {
+        "steamUsername" : "steam_username",
+        "steamPassword" : "steam_password"
+    },
     "profiles": [
         {
-            "profile" : "default",
-            "serverName" : "ArmA 3 Server with mods",
-            "serverPassword" : "",
-            "serverAdminPassword" : "",
-            "serverAdminUID" : "76561198070955336",
-            "serverMaxPlayers": 50,
-            "serverDisableVoN": 1,
+            "profile" : "modded",
             "mods" : {
-                "@cba": "450814997",
-                "@achilles": "723217262",
-                "@nss_console": "626264195",
-                "@3den_enhanced": "623475643",
-                "@enhanced_movement": "333310405",
-                "@sling": "615007497",
-                "@towing": "639837898",
-                "@rappeling": "713709341",
-                "@urban_rappeling": "730310357",
-                "@wmo": "925018569",
-                "@task_force_radio": "620019431",
-                "@reduced_weap_sway": "567737932",
-                "@alive": "620260972",
-                "@shacktac_ui": "498740884",
-                "@ace": "463939057",
-                "@acex": "708250744"
+                "clientMods" : {
+                    "@cba": "450814997",
+                    "@achilles": "723217262",
+                    "@nss_console": "626264195",
+                    "@3den_enhanced": "623475643",
+                    "@enhanced_movement": "333310405",
+                    "@sling": "615007497",
+                    "@towing": "639837898",
+                    "@rappeling": "713709341",
+                    "@urban_rappeling": "730310357",
+                    "@wmo": "925018569",
+                    "@task_force_radio": "620019431",
+                    "@reduced_weap_sway": "567737932",
+                    "@alive": "620260972",
+                    "@shacktac_ui": "498740884",
+                    "@ace": "463939057",
+                    "@acex": "708250744"
                 },
-            "serverMods" : {
-                "@vcom_ai": "721359761"
+                "serverMods" : {
+                    "@vcom_ai": "721359761"
+                },
+            },
+            "cfg" : {
+                // GENERAL SETTINGS
+                "hostname" : "ArmA 3 modded server",
+                "password" : "",
+                "passwordAdmin" : "",
+                "maxPlayers" : 55,
+                "persistent" : 1,
+                "admins" : {
+                    "schrobo" : "76561198070955336"
+                },
+
+                // VOICE CHAT
+                "disableVoN" : 1,
+                "vonCodecQuality" : 20,
+
+                // VOTING
+                "voteMissionPlayers" : 1,
+                "voteThreshold" : 9999,
+                "allowedVoteCmds" : "", // Not supported
+
+                // WELCOME MESSAGE
+                "motd" : [
+                    "", "",
+                    "Welcome to the server",
+                    "", "",
+                    "Some basic rules:",
+	                "Respect, play fair and have fun!"
+                ],
+                "motdInterval" : 5,
+
+                // MISSIONS
+                "forcedDifficulty" : "custom",
+                "missions" : {
+                    "defaultMission1" : {
+                        "template" : "MP_End_Game_01.Altis",
+                        "difficulty" : "custom",
+		                "classParams" : "" // Not supported
+                    },
+                    "defaultMission2" : {
+                        "template" : "MP_End_Game_02.Altis",
+                        "difficulty" : "custom",
+		                "classParams" : "" // Not supported
+                    }
+                },
+
+                // LOGGING
+                "timeStampFormat" : "short",
+                "logFile" : "server_console.log",
+
+                // SECURITY
+                "BattlEye" : 1,
+                "verifySignatures" : 2,
+                "kickDuplicate" : 1,
+                "allowedFilePatching" : 1,
+
+                // FILE EXTENSIONS
+                "allowedLoadFileExtensions" : [
+                    "hpp","sqs","sqf","fsm","cpp","paa","txt","xml","inc","ext","sqm","ods","fxy","lip","csv","kb","bik","bikb","html","htm","biedi"
+                ],
+                "allowedPreprocessFileExtensions" : [
+                    "hpp","sqs","sqf","fsm","cpp","paa","txt","xml","inc","ext","sqm","ods","fxy","lip","csv","kb","bik","bikb","html","htm","biedi"
+                ],
+                "allowedHTMLLoadExtensions" : [
+                    "htm","html","php","xml","txt"
+                ],
+
+                // EVENT SCRIPTS
+                "onUserConnected" : "",
+                "onUserDisconnected" : "",
+                "doubleIdDetected" : "",
+                "onUnsignedData" : "kick (_this select 0)",
+                "onHackedData" : "kick (_this select 0)",
+
+                // HEADLESS CLIENT
+                "headlessClients"  : "127.0.0.1",
+                "localClient"  : "127.0.0.1"
+            },
+            "difficulty" : {
+                // SIMULATION
+                "reducedDamage" : 0,    // Reduce damage
+
+                // SITUATIONAL AWARENESS
+                "groupIndicators" : 0,	// Group indicators (0 = never, 1 = limited distance, 2 = always)
+                "friendlyTags" : 0,		// Friendly name tags (0 = never, 1 = limited distance, 2 = always)
+                "enemyTags" : 0,		// Enemy name tags (0 = never, 1 = limited distance, 2 = always)
+                "detectedMines" : 0,	// Detected mines (0 = never, 1 = limited distance, 2 = always)
+                "commands" : 1,			// Commands (0 = never, 1 = fade out, 2 = always)
+                "waypoints" : 1,		// Waypoints (0 = never, 1 = fade out, 2 = always)
+                "tacticalPing" : 1,		// Tactical ping (0 = disable, 1 = enable)
+
+                // Personal awareness
+
+                "weaponInfo" : 1,		// Weapon info (0 = never, 1 = fade out, 2 = always)
+                "stanceIndicator" : 1,	// Stance indicator (0 = never, 1 = fade out, 2 = always)
+                "staminaBar" : 1,		// Stamina bar
+                "weaponCrosshair" : 0,	// Weapon crosshair
+                "visionAid" : 0,		// Vision aid
+
+                // View
+
+                "thirdPersonView" : 0,	// 3rd person view
+                "cameraShake" : 1,		// Camera shake
+
+                // Multiplayer
+
+                "scoreTable" : 0,		// Score table
+                "deathMessages" : 0,	// Killed by
+                "vonID" : 0,			// VoN ID
+
+                // Misc
+
+                "mapContent" : 0,		// Extended map content
+                "autoReport" : 0,		// (former autoSpot) Automatic reporting of spotted enemied by players only. This doesn't have any effect on AIs.
+                "multipleSaves" : 0,	// Multiple saves
+
+                // AI Preset
+                "aiLevelPreset" : 3,    // AI Preset (3 = Custom AI)
+
+                // Custom AI
+                "skillAI" : 0.5,        // Skill level
+		        "precisionAI" : 0.1     // Precision level
             }
-        },
-        {
-            "profile" : "empty",
-            "serverName" : "ArmA 3 Server without mods",
-            "serverPassword" : "",
-            "serverAdminPassword" : "",
-            "serverAdminUID" : "76561198070955336",
-            "serverMaxPlayers": 50,
-            "serverDisableVoN": 1,
-            "mods" : {},
-            "serverMods" : {}
         }
     ]
 }
