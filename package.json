@@ -1,0 +1,22 @@
+{
+  "name": "a3-server-manager",
+  "version": "2.0.0",
+  "description": "A3 Server Manager is a simple to use server manager for your ArmA 3 server on Linux",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/schrobo/a3-server-manager.git"
+  },
+  "author": "Szymon Chroboczek",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/schrobo/a3-server-manager/issues"
+  },
+  "homepage": "https://github.com/schrobo/a3-server-manager#readme",
+  "dependencies": {
+    "mustache": "^3.0.0"
+  }
+}
