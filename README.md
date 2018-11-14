@@ -1,4 +1,4 @@
-# A3 Server Manager V2.0 (WIP)
+# A3 Server Manager V2.0 (Discarded/Legacy)
 
 A3 Server Manager is a simple to use server manager for your ArmA 3 server on Linux. It is build with Node.js and runs from your terminal.
 
@@ -25,7 +25,7 @@ $ nvm use --lts
 #### 2. Clone repo
 
 ```
-$ git clone https://github.com/schrobo/a3-server-manager.git
+$ git clone https://github.com/schrobo/a3-server-manager-legacy.git
 ```
 
 ### Commands
@@ -114,7 +114,7 @@ $ node app.js start [profile] -hc [ip]
 - [X] Easier and more intuitive operation
 - [X] Configuration inside settings.json:
 - [X] "Profiles" for different server configurations
-- [ ] Different server.cfg for different profiles
+- [ ] ~~Different server.cfg for different profiles~~
 - [X] Run profile as headless client
 - [X] "Advanced"/Better commands
 
@@ -128,10 +128,10 @@ $ node app.js start [profile] -hc [ip]
 
 #### Features
 
-- [ ] Run on all OS
+- [ ] ~~Run on all OS~~
 
 ### V4.0
 
 #### Features
 
-- [ ] Run in GUI and CLI
+- [ ] ~~Run in GUI and CLI~~
