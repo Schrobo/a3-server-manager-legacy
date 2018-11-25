@@ -28,7 +28,7 @@ class DifficultyPresets
 
 			/* View */
 
-			thirdPersonView = 0;	// 3rd person view
+			thirdPersonView = 1;	// 3rd person view
 			cameraShake = 1;		// Camera shake
 
 			/* Multiplayer */
