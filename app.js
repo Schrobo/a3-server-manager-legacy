@@ -178,6 +178,9 @@ if (args[0] == null) {
         Update mods
         $ node app.js update [profile] -m
 
+        Copy keys
+        $ node app.js keys [profile]
+
         #### Start server
         $ node app.js start [profile]
 
@@ -202,6 +205,11 @@ if (args[0] === 'update') {
     checkPlatform();
     execSyncCommand(returnUpdateCommand(args[2]));
     lowercaseMods();
+    copyKeys(returnSettings('modKeys', args[1]));
+}
+
+if (args[0] === 'keys') {
+    checkPlatform();
     copyKeys(returnSettings('modKeys', args[1]));
 }
 
