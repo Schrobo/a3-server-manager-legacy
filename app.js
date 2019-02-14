@@ -154,7 +154,7 @@ const lowercaseMods = () => {
 
 const copyKeys = (mods) => {
     for (let mod in mods) {
-        execSyncCommand(`find ${serverDir}${workshopDir}${mods[mod]} ! -iregex ".*\\.bikey.*" -exec cp {} ${serverDir}keys/ \\;`);
+        execSyncCommand(`find ${serverDir}${workshopDir}${mods[mod]} -iregex ".*\\.bikey.*" -exec cp {} ${serverDir}keys/ \\;`);
     }
 }
 
